@@ -676,6 +676,8 @@ GameObject:
   - component: {fileID: 2106863757}
   - component: {fileID: 2106863756}
   - component: {fileID: 2106863755}
+  - component: {fileID: 2106863759}
+  - component: {fileID: 2106863758}
   m_Layer: 0
   m_Name: Ball Number One
   m_TagString: Untagged
@@ -692,7 +694,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 2106863754}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 21739983d8eb9c9479c9b54b854d4a79, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -762,3 +764,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &2106863758
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106863754}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &2106863759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106863754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13b47d96e682a94890a89e8d3c22949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rb2D: {fileID: 0}
+  velocity: {x: 0, y: 0, z: 0}
+  speed: 2
+  randomAngle: 0
+  angle: 0
+  startDirection: 0
+  firstDirection: {x: 0, y: 0, z: 0}
+  newDirection: {x: 0, y: 0, z: 0}
