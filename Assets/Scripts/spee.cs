@@ -16,6 +16,8 @@ public class spee : MonoBehaviour
     private float newAngle;
     private Vector2 directionFinal;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
