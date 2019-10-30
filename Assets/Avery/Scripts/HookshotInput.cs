@@ -10,6 +10,13 @@ public class HookshotInput : MonoBehaviour
     private bool shootHookshot;
 
     public GameObject hookshotObject;
+    private HookshotBehaviour hookshotScript;
+
+    private void Awake()
+    {
+        hookshotScript = hookshotObject.GetComponent<HookshotBehaviour>();
+    }
+
 
     private void OnGUI()
     {
@@ -27,10 +34,15 @@ public class HookshotInput : MonoBehaviour
     {
         if (hookshotObject && shootHookshot == true)
         {
-           if(hookshotObject.GetComponent<HookshotBehaviour>().isReady == true)
+           if(hookshotScript.isReady == true)
             {
-                hookshotObject.GetComponent<HookshotBehaviour>().sender = gameObject;
-                hookshotObject.GetComponent<HookshotBehaviour>().FireHookshot();
+                hookshotScript.sender = gameObject;
+                hookshotScript.FireHookshot();
+            }
+            else
+            {
+                hookshotScript.returning = true;
+                hookshotScript.grappling = false;
             }
         }
     }

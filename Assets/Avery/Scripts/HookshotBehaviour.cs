@@ -24,6 +24,12 @@ public class HookshotBehaviour : MonoBehaviour
         startPos = transform.localPosition;       
     }
 
+    public void ResetHookshot()
+    {
+        isReady = true;
+        rb.velocity = Vector3.zero;
+        transform.localPosition = startPos;
+    }
 
     public void FireHookshot()
     {
@@ -31,7 +37,7 @@ public class HookshotBehaviour : MonoBehaviour
         {
             transform.parent = null;
             travelDirection = Camera.main.transform.forward;
-            transform.rotation = Quaternion.LookRotation(travelDirection);
+            rb.rotation = Quaternion.LookRotation(travelDirection);
             travelStartTime = Time.fixedTime;
             isReady = false;
         }
@@ -43,7 +49,7 @@ public class HookshotBehaviour : MonoBehaviour
 
     public void ShouldHookshotReturn()
     {
-        if (travelStartTime + travelTime < Time.fixedTime && isReady == false)
+        if (travelStartTime + travelTime < Time.fixedTime && isReady == false && grappling == false)
         {
             returning = true;
         }
@@ -53,8 +59,8 @@ public class HookshotBehaviour : MonoBehaviour
     {
         if (returning)
         {
-            travelDirection = (Camera.main.transform.position - transform.position).normalized;
-            transform.rotation = Quaternion.LookRotation(travelDirection);
+            travelDirection = (Camera.main.transform.position - rb.position).normalized;
+            rb.rotation = Quaternion.LookRotation(travelDirection);
             rb.velocity = travelSpeed * travelDirection;
         }
     }
@@ -67,15 +73,20 @@ public class HookshotBehaviour : MonoBehaviour
             transform.parent = Camera.main.transform;
             ResetHookshot();
         }
+        if(other.gameObject == sender && grappling)
+        {
+            grappling = false;
+            transform.parent = Camera.main.transform;
+            ResetHookshot();
+        }
+        if(other.gameObject.tag == "Environment" && isReady == false && returning == false)
+        {
+            rb.velocity = Vector3.zero;
+            grappling = true;
+        }
     }
 
-    public void ResetHookshot()
-    {
-        isReady = true;
-        rb.velocity = Vector3.zero;
-        transform.localPosition = startPos;
-    }
-
+    
 
     void FixedUpdate()
     {
@@ -83,11 +94,16 @@ public class HookshotBehaviour : MonoBehaviour
         {
             FireHookshot();
         }
-        else if(returning == false && grappling == false)
-        {
-            ResetHookshot();
-        }
         ShouldHookshotReturn();
         ReturnHookshot();
     }
+
+    private void Update()
+    {
+        if (isReady == true)
+        {
+            ResetHookshot();
+        }
+    }
+
 }
