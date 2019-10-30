@@ -8,32 +8,43 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     public float walkSpeed;
+    public float grappleSpeed;
     public Vector3 movementDirection;
+    public GameObject hookshotObject;
+    private HookshotBehaviour hookshotScript;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        hookshotScript = hookshotObject.GetComponent<HookshotBehaviour>();
     }
 
     void MovePlayer()
     {
-        if(Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        if (hookshotScript.grappling != true)
         {
-            float horizontalInput = Input.GetAxisRaw("Horizontal");
-            float verticalInput = Input.GetAxisRaw("Vertical");
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+            {
+                float horizontalInput = Input.GetAxisRaw("Horizontal");
+                float verticalInput = Input.GetAxisRaw("Vertical");
 
-            movementDirection = (horizontalInput * Camera.main.transform.right + verticalInput * Camera.main.transform.forward).normalized;
+                movementDirection = (horizontalInput * Camera.main.transform.right + verticalInput * Camera.main.transform.forward).normalized;
 
-            float storedYVelocity = rb.velocity.y;
+                Vector3 storedVelocity = rb.velocity;
 
-            rb.velocity = movementDirection * walkSpeed * Time.fixedDeltaTime;
+                rb.velocity = movementDirection * walkSpeed * Time.fixedDeltaTime;
 
-            rb.velocity = new Vector3(rb.velocity.x, storedYVelocity, rb.velocity.z);
+                rb.velocity = new Vector3(rb.velocity.x, storedVelocity.y, rb.velocity.z);
+            }
+            else
+            {
+                movementDirection = Vector3.zero;
+            }
         }
         else
         {
-            movementDirection = Vector3.zero;
-
+            movementDirection = (hookshotObject.transform.position - rb.position).normalized;
+            rb.velocity = movementDirection * grappleSpeed * Time.fixedDeltaTime;
         }
     }
 
