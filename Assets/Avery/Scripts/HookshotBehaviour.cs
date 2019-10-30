@@ -95,6 +95,11 @@ public class HookshotBehaviour : MonoBehaviour
             GetComponent<Collider>().isTrigger = true;
             ToggleSenderCollision(false);
         }
+        else if(collision.gameObject.tag == "Ball" && isReady == false && returning == false)
+        {
+            GetComponent<Collider>().isTrigger = true;
+            ToggleSenderCollision(false);
+        }
     }
 
     public void ToggleSenderCollision(bool shouldIgnore)
