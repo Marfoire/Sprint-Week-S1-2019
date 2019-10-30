@@ -15,10 +15,10 @@ TagManager:
   - 
   - player
   - ball
-  - platform
+  - ceiling
   - wall
-  - 
-  - 
+  - platform
+  - small platform
   - 
   - 
   - 
