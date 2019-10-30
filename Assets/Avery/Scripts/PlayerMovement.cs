@@ -7,17 +7,39 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
 
+    public float walkSpeed;
+    public Vector3 movementDirection;
+
     void Awake()
     {
+        rb = GetComponent<Rigidbody>();
+    }
 
+    void MovePlayer()
+    {
+        if(Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        {
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+            float verticalInput = Input.GetAxisRaw("Vertical");
+
+            movementDirection = (horizontalInput * Camera.main.transform.right + verticalInput * Camera.main.transform.forward).normalized;
+
+            float storedYVelocity = rb.velocity.y;
+
+            rb.velocity = movementDirection * walkSpeed * Time.fixedDeltaTime;
+
+            rb.velocity = new Vector3(rb.velocity.x, storedYVelocity, rb.velocity.z);
+        }
+        else
+        {
+            movementDirection = Vector3.zero;
+
+        }
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-        {
-            transform.Translate((Camera.main.transform.forward - new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"))).normalized * (5 * Time.deltaTime));
-        }
+        MovePlayer();
     }
 }
