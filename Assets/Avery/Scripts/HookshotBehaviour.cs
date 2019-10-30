@@ -21,16 +21,18 @@ public class HookshotBehaviour : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        startPos = transform.localPosition;
+        startPos = transform.localPosition;       
     }
+
 
     public void FireHookshot()
     {
         if (isReady)
         {
+            transform.parent = null;
             travelDirection = Camera.main.transform.forward;
             transform.rotation = Quaternion.LookRotation(travelDirection);
-            travelStartTime = Time.time;
+            travelStartTime = Time.fixedTime;
             isReady = false;
         }
         if(isReady == false && returning == false && grappling == false)
@@ -41,7 +43,7 @@ public class HookshotBehaviour : MonoBehaviour
 
     public void ShouldHookshotReturn()
     {
-        if (travelStartTime + travelTime < Time.time && isReady == false)
+        if (travelStartTime + travelTime < Time.fixedTime && isReady == false)
         {
             returning = true;
         }
@@ -62,6 +64,7 @@ public class HookshotBehaviour : MonoBehaviour
         if(other.gameObject == sender && returning)
         {
             returning = false;
+            transform.parent = Camera.main.transform;
             ResetHookshot();
         }
     }
@@ -74,8 +77,7 @@ public class HookshotBehaviour : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isReady == false)
         {
