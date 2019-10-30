@@ -29,6 +29,7 @@ public class spee : MonoBehaviour
         //Find the direction using the angle and set the starting velocity
         firstDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
         Rb2D.velocity = firstDirection * speed;
+        previousVector = Rb2D.velocity;
     }
 
     void Update()

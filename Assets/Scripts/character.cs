@@ -6,7 +6,8 @@ public class character : MonoBehaviour
 {
     public float AccelerationTime = 1;
     public float DecelerationTime = 1;
-    public float MaxSpeed = 5;
+    public float MaxSpeed;
+    public float jumpForce;
 
     private float Velocity;
     private float TotalTime;
@@ -14,18 +15,18 @@ public class character : MonoBehaviour
     private float MagOfSavedVec;
     private Vector3 MySavedVector;
 
-    // Colour change
-    public Color player1col;
-    public Color player2col;
+    private Rigidbody2D Rb2D;
+    public bool groundCheck;
 
     void Start()
     {
         AccelerationTime = 0.5f;
         DecelerationTime = 0.5f;
         MaxSpeed = 7;
+        jumpForce = 7;
 
-        player1col = Color.red;
-        player1col = Color.blue;
+        Rb2D = GetComponent<Rigidbody2D>();
+        groundCheck = false;
     }
 
     void Update()
@@ -36,7 +37,7 @@ public class character : MonoBehaviour
             PlayerMove(moveInput);
         }
     }
-
+    #region playermovement
     void PlayerMove(Vector2 input)
     {
         Vector3 MyVector = new Vector3(input.x, input.y);
@@ -59,5 +60,32 @@ public class character : MonoBehaviour
         FinalVelocity = Mathf.Clamp(FinalVelocity, 0, MaxSpeed);
         float Distance = FinalVelocity * Time.deltaTime;
         transform.position += (MySavedVector * Distance);
+
+        if (input.y > 0 && groundCheck == true)
+        {
+            Rb2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            groundCheck = false;
+        }
+    }
+    #endregion
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("ball"))
+        {
+            if (gameObject.name == "Player1")
+            {
+                collision.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+
+            if (gameObject.name == "Player2")
+            {
+                collision.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+        }
+
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("small platform") || collision.collider.gameObject.layer == LayerMask.NameToLayer("platform"))
+        {
+            groundCheck = true;
+        }
     }
 }
