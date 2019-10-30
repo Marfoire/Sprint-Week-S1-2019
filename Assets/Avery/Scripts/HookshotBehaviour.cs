@@ -21,7 +21,8 @@ public class HookshotBehaviour : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        startPos = transform.localPosition;       
+        startPos = transform.localPosition;
+        ToggleSenderCollision(true);
     }
 
     public void ResetHookshot()
@@ -35,6 +36,8 @@ public class HookshotBehaviour : MonoBehaviour
     {
         if (isReady)
         {
+            ToggleSenderCollision(true);
+            GetComponent<Collider>().isTrigger = false;
             transform.parent = null;
             travelDirection = Camera.main.transform.forward;
             rb.rotation = Quaternion.LookRotation(travelDirection);
@@ -59,6 +62,8 @@ public class HookshotBehaviour : MonoBehaviour
     {
         if (returning)
         {
+            GetComponent<Collider>().isTrigger = true;
+            ToggleSenderCollision(false);
             travelDirection = (Camera.main.transform.position - rb.position).normalized;
             rb.rotation = Quaternion.LookRotation(travelDirection);
             rb.velocity = travelSpeed * travelDirection;
@@ -70,23 +75,37 @@ public class HookshotBehaviour : MonoBehaviour
         if(other.gameObject == sender && returning)
         {
             returning = false;
-            transform.parent = Camera.main.transform;
+            transform.parent = Camera.main.transform;            
             ResetHookshot();
         }
-        if(other.gameObject == sender && grappling)
+        if (other.gameObject == sender && grappling)
         {
             grappling = false;
             transform.parent = Camera.main.transform;
             ResetHookshot();
         }
-        if(other.gameObject.tag == "Environment" && isReady == false && returning == false)
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {     
+        if (collision.gameObject.tag == "Environment" && isReady == false && returning == false)
         {
             rb.velocity = Vector3.zero;
             grappling = true;
+            GetComponent<Collider>().isTrigger = true;
+            ToggleSenderCollision(false);
+        }
+        else if(collision.gameObject.tag == "Ball" && isReady == false && returning == false)
+        {
+            GetComponent<Collider>().isTrigger = true;
+            ToggleSenderCollision(false);
         }
     }
 
-    
+    public void ToggleSenderCollision(bool shouldIgnore)
+    {
+        Physics.IgnoreCollision(GetComponent<Collider>(), sender.GetComponent<Collider>(), shouldIgnore);
+    }
 
     void FixedUpdate()
     {
