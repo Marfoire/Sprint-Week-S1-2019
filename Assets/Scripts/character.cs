@@ -23,7 +23,7 @@ public class character : MonoBehaviour
         AccelerationTime = 0.5f;
         DecelerationTime = 0.5f;
         MaxSpeed = 7;
-        jumpForce = 7;
+        jumpForce = 6;
 
         Rb2D = GetComponent<Rigidbody2D>();
         groundCheck = false;

@@ -16,9 +16,8 @@ public class spee : MonoBehaviour
     private float newAngle;
     private Vector2 directionFinal;
 
+    private Vector2 firstVelocity;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         Rb2D = GetComponent<Rigidbody2D>();
@@ -31,11 +30,14 @@ public class spee : MonoBehaviour
         //Find the direction using the angle and set the starting velocity
         firstDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
         Rb2D.velocity = firstDirection * speed;
-        previousVector = Rb2D.velocity;
+        firstVelocity = Rb2D.velocity;
     }
 
     void Update()
     {
+        Vector3 line2Center = new Vector2(0, 0) - Rb2D.position;
+        Debug.DrawLine(Rb2D.position, new Vector2(0, 0), Color.red);
+
         // Store the previous velocity of the ball for use upon impact with object
         previousVector = Rb2D.velocity;
     }
@@ -51,8 +53,7 @@ public class spee : MonoBehaviour
             Rb2D.velocity = new Vector3(previousVector.x, -previousVector.y, 0);
         }
 
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("player"))
-        {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("player")) {
             Rb2D.velocity = new Vector3(-previousVector.x, -previousVector.y, 0);
         }
 
