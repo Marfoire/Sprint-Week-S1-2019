@@ -15,6 +15,13 @@ public class ScoreBoard : MonoBehaviour
     public int m_redScore;
 
 
+
+    private void Start()
+    {
+        m_blueScore = 0;
+        m_redScore  = 0;
+    }
+
     #region BlueTeamScore
     public void IncreaseBlueTeamScore(int p_amount)
     {
