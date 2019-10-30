@@ -18,7 +18,7 @@ public class ThrowBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(heldBall) heldBall.transform.position = transform.position + transform.forward;
+        if (heldBall) heldBall.transform.position = transform.position + transform.forward;
 
         Transform cameraTransform = Camera.main.transform;
         if (Input.GetKeyDown(throwButton))
@@ -28,21 +28,18 @@ public class ThrowBall : MonoBehaviour
             {
                 Vector3 launchVector = cameraTransform.forward * launchForce;
 
-                Debug.Log(launchVector);
-
-                heldBall.GetComponent<Rigidbody>().AddForce(launchVector, ForceMode.Impulse);
                 heldBall.transform.parent = null;
+                heldBall.GetComponent<Rigidbody>().velocity = launchVector;
                 heldBall = null;
-            } else
+            }
+            else
             {
                 Collider[] balls = Physics.OverlapSphere(transform.position, grabRange, ballLayer);
-                
 
                 if (balls.Length > 0)
                 {
                     heldBall = balls[0].gameObject;
                     balls[0].transform.parent = transform;
-                    
                 }
             }
         }
