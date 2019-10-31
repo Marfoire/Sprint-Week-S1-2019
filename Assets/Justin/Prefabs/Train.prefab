@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4632778820303778057}
   - component: {fileID: 6994956967271141855}
   - component: {fileID: 1607918199752176976}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Train
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 3739133237038128735}
   - component: {fileID: 3159494847586478780}
   - component: {fileID: 3159494847586478781}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Train
   m_TagString: Untagged
   m_Icon: {fileID: 0}
