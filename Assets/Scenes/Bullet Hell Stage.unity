@@ -380,7 +380,7 @@ PrefabInstance:
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
@@ -576,7 +576,7 @@ PrefabInstance:
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
@@ -1101,6 +1101,8 @@ MonoBehaviour:
   MaxSpeed: 1
   jumpForce: 2
   groundCheck: 0
+  airCheck: 0
+  moveInput: {x: 0, y: 0}
 --- !u!1 &946003967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,7 +1500,7 @@ PrefabInstance:
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
@@ -1676,7 +1678,7 @@ PrefabInstance:
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
@@ -1826,7 +1828,7 @@ PrefabInstance:
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
@@ -2174,6 +2176,8 @@ MonoBehaviour:
   MaxSpeed: 1
   jumpForce: 2
   groundCheck: 0
+  airCheck: 0
+  moveInput: {x: 0, y: 0}
 --- !u!61 &2119169739
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2283,7 +2287,7 @@ PrefabInstance:
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 5322317762309430119, guid: ff969247a41da0a44861e3e6227683f0,
         type: 3}
