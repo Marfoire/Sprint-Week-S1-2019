@@ -71,25 +71,64 @@ public class spee : MonoBehaviour
             Rb2D.velocity = nextDirection * speed;
         }
     }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
-        
         // Check layer of object collided with and reverse appropriate part of velocity
+        #region wallCollide
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("wall")) {
             Rb2D.velocity = new Vector3(-previousVector.x, previousVector.y, 0);
-            Instantiate(redPaint, transform.position, transform.rotation);
+
+            if (this.GetComponent<SpriteRenderer>().color == Color.red)
+            {
+                GameObject redClone = Instantiate(redPaint, new Vector3(collision.collider.gameObject.transform.position.x, Rb2D.position.y), transform.rotation);
+                if (redClone.transform.position.x < 0)
+                {
+                    redClone.transform.Rotate(0, 0, -90);
+                }
+                else
+                {
+                    redClone.transform.Rotate(0, 0, 90);
+                }
+            } else if (this.GetComponent<SpriteRenderer>().color == Color.cyan)
+            {
+                GameObject blueClone = Instantiate(bluePaint, new Vector3(collision.collider.gameObject.transform.position.x, Rb2D.position.y), transform.rotation);
+                if (blueClone.transform.position.x < 0)
+                {
+                    blueClone.transform.Rotate(0, 0, -90);
+                }
+                else
+                {
+                    blueClone.transform.Rotate(0, 0, 90);
+                }
+            }
         }
+        #endregion
 
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("platform")) {
             Rb2D.velocity = new Vector3(previousVector.x, -previousVector.y, 0);
-            Instantiate(redPaint, transform.position, transform.rotation);
+            if (this.GetComponent<SpriteRenderer>().color == Color.red)
+            {
+                GameObject redClone = Instantiate(redPaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y), transform.rotation);
+            }
+            else if (this.GetComponent<SpriteRenderer>().color == Color.cyan)
+            {
+                GameObject blueClone = Instantiate(bluePaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y), transform.rotation);
+            }
         }
 
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("ceiling"))
         {
             Rb2D.velocity = new Vector3(previousVector.x, -previousVector.y, 0);
-            Instantiate(redPaint, transform.position, transform.rotation);
+            if (this.GetComponent<SpriteRenderer>().color == Color.red)
+            {
+                GameObject redClone = Instantiate(redPaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y), transform.rotation);
+                redClone.GetComponent<SpriteRenderer>().flipY = false;
+            }
+            else if (this.GetComponent<SpriteRenderer>().color == Color.cyan)
+            {
+                GameObject blueClone = Instantiate(bluePaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y), transform.rotation);
+                blueClone.GetComponent<SpriteRenderer>().flipY = false;
+            }
         }
 
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("player")) {
