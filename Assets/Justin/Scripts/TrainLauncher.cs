@@ -13,16 +13,23 @@ public class TrainLauncher : MonoBehaviour
 
     public GameObject trainPrefab;
 
-    private float trainTimer;
-    // Start is called before the first frame update
-    void Start()
+    public float trainTimer;
+    private AudioSource audioSource;
+   
+    void Awake()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {    
+        if(trainTimer >= launchRate - (launchRate - audioSource.clip.length))
+        {
+            audioSource.Stop();
+            audioSource.time = 0;
+            audioSource.Play();
+        }
         if(trainTimer <= 0)
         {
             GameObject tempTrain = Instantiate(trainPrefab, trainSpawnPoint.position, Quaternion.Euler(0,90,0));

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4632778820303778057}
   - component: {fileID: 6994956967271141855}
   - component: {fileID: 1607918199752176976}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Train
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2379793695071346322}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.226}
+  m_LocalPosition: {x: 0, y: 0, z: -0.478}
   m_LocalScale: {x: 1, y: 1, z: -1}
   m_Children: []
   m_Father: {fileID: 2126717215163504784}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 3739133237038128735}
   - component: {fileID: 3159494847586478780}
   - component: {fileID: 3159494847586478781}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Train
   m_TagString: Untagged
   m_Icon: {fileID: 0}

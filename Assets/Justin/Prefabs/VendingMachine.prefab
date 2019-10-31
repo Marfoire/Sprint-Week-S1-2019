@@ -48,7 +48,7 @@ GameObject:
   m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3070001367356086039
 Transform:
@@ -83,6 +83,7 @@ MonoBehaviour:
   - Ball
   kolaCanPrefab: {fileID: 7324116389597052645, guid: 515341be6c26aff4a9a66d0d812b7bb2,
     type: 3}
+  dispenseSound: {fileID: 8300000, guid: d826b3561ed5a354b9f50c9453d7cdda, type: 3}
 --- !u!33 &6323567647123713313
 MeshFilter:
   m_ObjectHideFlags: 0
