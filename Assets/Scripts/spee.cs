@@ -18,12 +18,16 @@ public class spee : MonoBehaviour
 
     private Vector2 firstVelocity;
 
+    private Vector2 startPosition;
+    public Vector2 direction;
+    private Vector2 nextDirection;
+
     void Start()
     {
         Rb2D = GetComponent<Rigidbody2D>();
         
         //Find random starting direction and speed
-        randomAngle = Random.Range(0, 360);
+        randomAngle = Random.Range(1, 360);
         speed = 9;
         angle = randomAngle * Mathf.Deg2Rad;
 
@@ -31,6 +35,7 @@ public class spee : MonoBehaviour
         firstDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
         Rb2D.velocity = firstDirection * speed;
         firstVelocity = Rb2D.velocity;
+        startPosition = Rb2D.position;
     }
 
     void Update()
@@ -40,6 +45,23 @@ public class spee : MonoBehaviour
 
         // Store the previous velocity of the ball for use upon impact with object
         previousVector = Rb2D.velocity;
+
+        if (Rb2D.velocity.magnitude != firstVelocity.magnitude)
+        {
+            Rb2D.velocity = Rb2D.velocity.normalized * firstVelocity.magnitude;
+        }
+
+        direction = Rb2D.velocity.normalized;
+        Debug.Log(direction);
+
+        if (direction.x == 0 || direction.y == 0)
+        {
+            Rb2D.position = startPosition;
+            randomAngle = Random.Range(1, 360);
+            angle = randomAngle * Mathf.Deg2Rad;
+            nextDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
+            Rb2D.velocity = nextDirection * speed;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
