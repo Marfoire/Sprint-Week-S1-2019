@@ -18,25 +18,55 @@ public class ScoreBoard : MonoBehaviour
 
     private void Start()
     {
-        m_blueScore = 0;
-        m_redScore  = 0;
+        m_blueTeamScoreText.text = m_blueScore.ToString();
+        m_redTeamScoreText.text = m_redScore.ToString();
     }
 
-    #region BlueTeamScore
-    public void IncreaseBlueTeamScore(int p_amount)
+
+
+    private void Update()
     {
-        m_blueScore += p_amount;
+        m_blueTeamScoreText.text = m_blueScore.ToString();
+        m_redTeamScoreText.text = m_redScore.ToString();
+    }
+    #region BlueTeamScore
+    public void IncreaseBlueTeamScore()
+    {
+        m_blueScore++;
         m_blueTeamScoreText.text = m_blueScore.ToString();
     }
     #endregion
 
     #region RedTeamScore
-    public void IncreaseRedTeamScore(int p_amount)
+    public void IncreaseRedTeamScore()
     {
-        m_redScore += p_amount;
+        m_redScore++;
         m_redTeamScoreText.text = m_redScore.ToString();
 
     }
     #endregion
 
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("ball"))
+        {
+
+            if (collision.gameObject.GetComponent<SpriteRenderer>().color == Color.red)
+            {
+                IncreaseRedTeamScore();
+                
+                Debug.Log("redteamscore");
+            }
+
+            if (collision.gameObject.GetComponent<SpriteRenderer>().color == Color.blue)
+            {
+                IncreaseBlueTeamScore();
+                Debug.Log("blueteamscored");
+
+            }
+        }
+    }
 }
