@@ -17,7 +17,7 @@ public class GamePlayerTimer : MonoBehaviour
 
     public float targetTime;
 
-    public GameObject gameObject;
+    public GameObject coll;
 
     private int m_timerBlueScore;
     private int m_timerRedScore;

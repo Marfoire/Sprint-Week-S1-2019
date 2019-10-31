@@ -113,6 +113,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   direction: {x: 0, y: 0}
+  bluePaint: {fileID: 302561921380585663, guid: 3f0c9065cc2ba6445bf9446b170393af,
+    type: 3}
+  redPaint: {fileID: 3714335160678835465, guid: eeabe700dac3109498f89c855200292b,
+    type: 3}
 --- !u!50 &5322317762309430116
 Rigidbody2D:
   serializedVersion: 4
