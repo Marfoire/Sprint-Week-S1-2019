@@ -18,27 +18,29 @@ public class HookshotBehaviour : MonoBehaviour
     public GameObject sender;
 
     private Vector3 startPos;
+    private Quaternion startRot;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         startPos = transform.localPosition;
+        startRot = transform.localRotation;
         ToggleSenderCollision(true);
     }
 
     public void ResetHookshot()
     {
-        if (transform.childCount != 0)
+        if (transform.childCount > 1)
         {
-            Physics.IgnoreCollision(transform.GetChild(0).GetComponent<Collider>(), sender.GetComponent<Collider>(), false);
+            Physics.IgnoreCollision(transform.GetChild(1).GetComponent<Collider>(), sender.GetComponent<Collider>(), false);
             if (!sender.GetComponent<ThrowBall>().GetHeldBall())
             {
-                transform.GetChild(0).GetComponent<Rigidbody>();
-                sender.GetComponent<ThrowBall>().GrabBall(transform.GetChild(0).gameObject);
+                transform.GetChild(1).GetComponent<Rigidbody>();
+                sender.GetComponent<ThrowBall>().GrabBall(transform.GetChild(1).gameObject);
             }
             else
             {               
-                transform.GetChild(0).parent = null;
+                transform.GetChild(1).parent = null;
             }
         }
        /* if (sender.GetComponent<ThrowBall>().GetHeldBall()) //hookshot probably isn't the place to do this
@@ -49,6 +51,7 @@ public class HookshotBehaviour : MonoBehaviour
         isReady = true;
         rb.velocity = Vector3.zero;
         transform.localPosition = startPos;
+        transform.localRotation = startRot;
     }
 
     public void FireHookshot()
@@ -84,21 +87,21 @@ public class HookshotBehaviour : MonoBehaviour
             GetComponent<Collider>().isTrigger = true;
             ToggleSenderCollision(false);
             travelDirection = (Camera.main.transform.position - rb.position).normalized;
-            rb.rotation = Quaternion.LookRotation(travelDirection);
+            rb.rotation = Quaternion.LookRotation(-travelDirection);
             rb.velocity = travelSpeed * travelDirection;
 
-            if (transform.childCount != 0)
+            if (transform.childCount > 1)
             {
                 if (!cancelledShot)
                 {
-                    Physics.IgnoreCollision(transform.GetChild(0).GetComponent<Collider>(), sender.GetComponent<Collider>(), true);
-                    transform.GetChild(0).GetComponent<Rigidbody>().velocity = rb.velocity;
-                    transform.GetChild(0).GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                    Physics.IgnoreCollision(transform.GetChild(1).GetComponent<Collider>(), sender.GetComponent<Collider>(), true);
+                    transform.GetChild(1).GetComponent<Rigidbody>().velocity = rb.velocity;
+                    transform.GetChild(1).GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                 }
                 else
                 {
-                    Physics.IgnoreCollision(transform.GetChild(0).GetComponent<Collider>(), sender.GetComponent<Collider>(),false);
-                    transform.GetChild(0).parent = null;
+                    Physics.IgnoreCollision(transform.GetChild(1).GetComponent<Collider>(), sender.GetComponent<Collider>(),false);
+                    transform.GetChild(1).parent = null;
                 }
             }
         }

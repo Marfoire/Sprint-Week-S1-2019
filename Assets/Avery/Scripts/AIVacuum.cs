@@ -40,7 +40,7 @@ public class AIVacuum : MonoBehaviour
         {
             foreach (GameObject potentialTarget in scanner.targetsInRange)
             {
-                if (potentialTarget)
+                if (potentialTarget && potentialTarget.GetComponent<BallSide>().side == -1)
                 {
                     if (lowestSqrMagnitude > Vector3.SqrMagnitude(transform.position - potentialTarget.GetComponent<Rigidbody>().position))
                     {
