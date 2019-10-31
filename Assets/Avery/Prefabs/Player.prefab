@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 2817610740868692775}
   - component: {fileID: 2817610740868692954}
   - component: {fileID: 2817610740868692953}
+  - component: {fileID: 6540322694206843747}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -167,7 +168,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2817610740868692768}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.193, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -281,6 +282,24 @@ MonoBehaviour:
   grappleSpeed: 2000
   movementDirection: {x: 0, y: 0, z: 0}
   hookshotObject: {fileID: 2817610740878002418}
+--- !u!114 &6540322694206843747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2817610740868692768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91542f1745f79dc49a89755f13e1b669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwButton: 324
+  launchForce: 30
+  grabRange: 3
+  ballLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &2817610740878002418
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +409,7 @@ MonoBehaviour:
   isReady: 1
   returning: 0
   grappling: 0
+  cancelledShot: 0
   travelTime: 1
   travelDirection: {x: 0, y: 0, z: 0}
   travelSpeed: 50

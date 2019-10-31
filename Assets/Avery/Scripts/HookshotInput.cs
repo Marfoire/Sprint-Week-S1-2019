@@ -36,12 +36,14 @@ public class HookshotInput : MonoBehaviour
         {
            if(hookshotScript.isReady == true)
             {
+                hookshotScript.cancelledShot = false;
                 hookshotScript.sender = gameObject;
                 hookshotScript.FireHookshot();
             }
             else
             {
                 hookshotScript.returning = true;
+                hookshotScript.cancelledShot = true;
                 hookshotScript.grappling = false;
             }
         }
