@@ -10,6 +10,8 @@ public class VendingMachine : MonoBehaviour
 
     public GameObject kolaCanPrefab;
 
+    public AudioClip dispenseSound;
+
     private Transform dispenceLocation;
 
     void Awake()
@@ -32,6 +34,7 @@ public class VendingMachine : MonoBehaviour
 
             if (found)
             {
+                AudioManager.instance.PlaySound(gameObject, dispenseSound);
                 Instantiate(kolaCanPrefab, dispenceLocation.position, Quaternion.Euler(0, 0, 90));
             }
         }

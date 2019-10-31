@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 7041788973202042822}
   - component: {fileID: 7041788973202042873}
   - component: {fileID: 7041788973202042818}
+  - component: {fileID: 1186996537}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -312,7 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   readyUI: {fileID: 7041788974495107935}
   counter: {fileID: 7041788974428303659}
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 901572358}
   ready: {fileID: 7041788973932759786}
   go: {fileID: 7041788974510443540}
   timeLimit: {fileID: 7041788973321950667}
@@ -321,6 +322,20 @@ MonoBehaviour:
   color3: {r: 0.993973, g: 1, b: 0, a: 1}
   recipient: {fileID: 0}
   message: 
+--- !u!114 &1186996537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7041788973202042872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d613175de7873724e8e551257f9d22be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPlayerPrefab: {fileID: 5903822684429374563, guid: 0d0ec58eba5964944b67c7d277312ea8,
+    type: 3}
 --- !u!1 &7041788973321950667
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7041788973321950678
 RectTransform:
   m_ObjectHideFlags: 0
@@ -650,7 +665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7041788974495107932
 RectTransform:
   m_ObjectHideFlags: 0
