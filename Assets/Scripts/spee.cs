@@ -41,7 +41,7 @@ public class spee : MonoBehaviour
     void Update()
     {
         Vector3 line2Center = new Vector2(0, 0) - Rb2D.position;
-        Debug.DrawLine(Rb2D.position, new Vector2(0, 0), Color.red);
+        Debug.DrawLine(Rb2D.position, startPosition, Color.red);
 
         // Store the previous velocity of the ball for use upon impact with object
         previousVector = Rb2D.velocity;
@@ -78,8 +78,5 @@ public class spee : MonoBehaviour
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("player")) {
             Rb2D.velocity = new Vector3(-previousVector.x, -previousVector.y, 0);
         }
-
-        //NOTE: This method won't work for objects that can be hit from more than one side. For the shield and platforms, this method won't work (will need additional if statements).
-        // Also, sorry about the name of the script.
     }
 }

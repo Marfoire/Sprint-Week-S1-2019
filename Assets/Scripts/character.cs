@@ -17,26 +17,40 @@ public class character : MonoBehaviour
 
     private Rigidbody2D Rb2D;
     public bool groundCheck;
+    public bool airCheck;
+
+    public Vector2 moveInput;
 
     void Start()
     {
         AccelerationTime = 0.5f;
         DecelerationTime = 0.5f;
         MaxSpeed = 7;
-        jumpForce = 6;
+        jumpForce = 4;
 
         Rb2D = GetComponent<Rigidbody2D>();
         groundCheck = false;
     }
-
+    #region getInput
     void Update()
     {
-        Vector2 moveInput = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if (gameObject.name == "Player1")
+        {
+            moveInput = new Vector3(Input.GetAxis("Horizontal1"), Input.GetAxis("Vertical1"));
+        }
+
+        if (gameObject.name == "Player2")
+        {
+            moveInput = new Vector3(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2"));
+        }
+
         if (moveInput != new Vector2(0, 0))
         {
             PlayerMove(moveInput);
         }
     }
+    #endregion
+
     #region playermovement
     void PlayerMove(Vector2 input)
     {
@@ -66,8 +80,24 @@ public class character : MonoBehaviour
             Rb2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             groundCheck = false;
         }
+
+        if (input.y < 0 && groundCheck == false && airCheck == true)
+        {
+            if (Rb2D.velocity.y < 0)
+            {
+                Rb2D.velocity = new Vector2(Rb2D.velocity.x, Rb2D.velocity.y * 5);
+            }
+
+            if (Rb2D.velocity.y > 0 && Rb2D.velocity.y < 10)
+            {
+                Rb2D.velocity = new Vector2(Rb2D.velocity.x, -Rb2D.velocity.y * 10);
+            }
+            airCheck = false;
+        }
     }
     #endregion
+
+    #region collisions
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("ball"))
@@ -82,10 +112,23 @@ public class character : MonoBehaviour
                 collision.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
             }
         }
+    }
 
+    void OnCollisionStay2D(Collision2D collision)
+    {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("small platform") || collision.collider.gameObject.layer == LayerMask.NameToLayer("platform"))
         {
             groundCheck = true;
         }
     }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("small platform") || collision.collider.gameObject.layer == LayerMask.NameToLayer("platform"))
+        {
+            groundCheck = false;
+            airCheck = true;
+        }
+    }
+    #endregion
 }
