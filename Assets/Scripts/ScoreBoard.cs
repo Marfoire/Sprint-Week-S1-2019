@@ -61,7 +61,7 @@ public class ScoreBoard : MonoBehaviour
                 Debug.Log("redteamscore");
             }
 
-            if (collision.gameObject.GetComponent<SpriteRenderer>().color == Color.blue)
+            if (collision.gameObject.GetComponent<SpriteRenderer>().color == Color.cyan)
             {
                 IncreaseBlueTeamScore();
                 Debug.Log("blueteamscored");

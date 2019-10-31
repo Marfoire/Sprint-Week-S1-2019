@@ -65,27 +65,14 @@ public class character : MonoBehaviour
         Vector3 MyVector = new Vector3(input.x, input.y);
         float MagOfVec = MyVector.magnitude;
 
-        if (gameObject.name == "Player1")
+        if (input.x < 0)
         {
-            if (input.x < 0)
-            {
-                playerSprite.flipX = false;
-            } else
-            {
-                playerSprite.flipX = true;
-            }
+            playerSprite.flipX = false;
         }
-
-        if (gameObject.name == "Player2")
+        
+        if (input.x > 0)
         {
-            if (input.x < 0)
-            {
-                playerSprite.flipX = false;
-            }
-            else
-            {
-                playerSprite.flipX = true;
-            }
+            playerSprite.flipX = true;
         }
 
         if (MagOfVec != 0)

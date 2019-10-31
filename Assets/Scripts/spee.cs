@@ -75,6 +75,11 @@ public class spee : MonoBehaviour
             Rb2D.velocity = new Vector3(previousVector.x, -previousVector.y, 0);
         }
 
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("ceiling"))
+        {
+            Rb2D.velocity = new Vector3(previousVector.x, -previousVector.y, 0);
+        }
+
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("player")) {
             Rb2D.velocity = new Vector3(-previousVector.x, -previousVector.y, 0);
         }
