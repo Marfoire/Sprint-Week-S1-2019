@@ -35,18 +35,25 @@ public class AIVacuum : MonoBehaviour
         float lowestSqrMagnitude = 10000000;
 
         invokeScan = false;
-        
-        foreach (GameObject potentialTarget in scanner.targetsInRange)
+
+        if (AreThereBallsInRange() == true)
         {
-            if (potentialTarget)
+            foreach (GameObject potentialTarget in scanner.targetsInRange)
             {
-                if (lowestSqrMagnitude > Vector3.SqrMagnitude(transform.position - potentialTarget.GetComponent<Rigidbody>().position))
+                if (potentialTarget)
                 {
-                    lowestSqrMagnitude = Vector3.SqrMagnitude(transform.position - potentialTarget.GetComponent<Rigidbody>().position);
-                    target = potentialTarget;
+                    if (lowestSqrMagnitude > Vector3.SqrMagnitude(transform.position - potentialTarget.GetComponent<Rigidbody>().position))
+                    {
+                        lowestSqrMagnitude = Vector3.SqrMagnitude(transform.position - potentialTarget.GetComponent<Rigidbody>().position);
+                        target = potentialTarget;
+                    }
                 }
             }
-        }       
+        }
+        else
+        {
+            target = null;
+        }
     }
 
 
@@ -76,7 +83,7 @@ public class AIVacuum : MonoBehaviour
 
     void Update()
     {        
-        if (!target)
+        if (!target && AreThereBallsInRange() == true)
         {
             FindATarget();
         }

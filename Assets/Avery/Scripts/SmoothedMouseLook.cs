@@ -32,6 +32,8 @@ public class SmoothedMouseLook : MonoBehaviour
 
     void Update()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         if (axes == RotationAxes.MouseXAndY)
         {
             rotAverageY = 0f;
