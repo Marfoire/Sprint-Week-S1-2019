@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
                 float horizontalInput = Input.GetAxisRaw("Horizontal");
                 float verticalInput = Input.GetAxisRaw("Vertical");
 
-                movementDirection = (horizontalInput * (Camera.main.transform.right) + verticalInput * Camera.main.transform.forward);
+                movementDirection = (horizontalInput * Camera.main.transform.right + verticalInput * Camera.main.transform.forward);
                 movementDirection = new Vector3(movementDirection.x, 0, movementDirection.z).normalized;
 
                 Vector3 storedVelocity = rb.velocity;
