@@ -20,9 +20,11 @@ public class character : MonoBehaviour
     public bool airCheck;
 
     public Vector2 moveInput;
+    SpriteRenderer playerSprite;
 
     void Start()
     {
+        playerSprite = GetComponent<SpriteRenderer>();
         AccelerationTime = 0.5f;
         DecelerationTime = 0.5f;
         MaxSpeed = 7;
@@ -30,6 +32,11 @@ public class character : MonoBehaviour
 
         Rb2D = GetComponent<Rigidbody2D>();
         groundCheck = false;
+
+        if (gameObject.name == "Player1")
+        {
+            playerSprite.flipX = true;
+        }
     }
     #region getInput
     void Update()
@@ -54,8 +61,32 @@ public class character : MonoBehaviour
     #region playermovement
     void PlayerMove(Vector2 input)
     {
+
         Vector3 MyVector = new Vector3(input.x, input.y);
         float MagOfVec = MyVector.magnitude;
+
+        if (gameObject.name == "Player1")
+        {
+            if (input.x < 0)
+            {
+                playerSprite.flipX = false;
+            } else
+            {
+                playerSprite.flipX = true;
+            }
+        }
+
+        if (gameObject.name == "Player2")
+        {
+            if (input.x < 0)
+            {
+                playerSprite.flipX = false;
+            }
+            else
+            {
+                playerSprite.flipX = true;
+            }
+        }
 
         if (MagOfVec != 0)
         {
@@ -109,7 +140,7 @@ public class character : MonoBehaviour
 
             if (gameObject.name == "Player2")
             {
-                collision.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                collision.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
             }
         }
     }
