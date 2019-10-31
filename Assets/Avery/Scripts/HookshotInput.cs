@@ -12,6 +12,8 @@ public class HookshotInput : MonoBehaviour
     public GameObject hookshotObject;
     private HookshotBehaviour hookshotScript;
 
+    public AudioClip hookShotLaunchsound;
+
     private void Awake()
     {
         hookshotScript = hookshotObject.GetComponent<HookshotBehaviour>();
@@ -39,6 +41,7 @@ public class HookshotInput : MonoBehaviour
                 hookshotScript.cancelledShot = false;
                 hookshotScript.sender = gameObject;
                 hookshotScript.FireHookshot();
+                AudioManager.instance.PlaySound(gameObject, hookShotLaunchsound);
             }
             else
             {
