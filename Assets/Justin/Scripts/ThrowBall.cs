@@ -14,9 +14,10 @@ public class ThrowBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (heldBall) heldBall.transform.position = transform.position + transform.forward;
-
         Transform cameraTransform = Camera.main.transform;
+
+        if (heldBall) heldBall.transform.position = transform.position + cameraTransform.forward;
+        
         if (Input.GetKeyDown(throwButton))
         {
 
