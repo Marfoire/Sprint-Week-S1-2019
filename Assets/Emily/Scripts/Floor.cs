@@ -6,24 +6,21 @@ public class Floor : MonoBehaviour
 {
     public GameObject owner;
     public string Ball;
+    //depending which collider the ball hits, add +1 score prob debug cause idk ui lol
 
-    //void OnCollisionEnter(Collider other)
-    //{
-    //    if (other.tag == Ball)
-    //    {
-    //       // owner.SendMessage("Points", other.gameObject);
-    //        //Debug.Log("aaaaaa");
-    //        Score.scoreValue += 1; 
-    //    }
-    //}
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == Ball)
+        {
+            // owner.SendMessage("Points", other.gameObject);
+            Debug.Log("aaaaaa");
+            Score.scoreValue += 1;
+        }
+    }
 
-    //void OnCollisionExit(Collider other)
-    //{
-    //    if (other.tag == Ball)
-    //    {
-    //         owner.SendMessage("Lose", other.gameObject);
-    //        //Debug.Log("hewwo");
-    //    }
-    //}
+    void OnCollisionExit(Collision other)
+    {
 
+        Debug.Log("owo");
+    }
 }

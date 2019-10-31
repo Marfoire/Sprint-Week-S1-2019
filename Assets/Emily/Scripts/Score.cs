@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
 
-    public Transform ball;
+    //public Transform ball;
     public Text points;
     public static int scoreValue = 0;
     // Start is called before the first frame update
