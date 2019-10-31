@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class character : MonoBehaviour
 {
+    #region variables
+    // Movement speeds
     public float AccelerationTime = 1;
     public float DecelerationTime = 1;
     public float MaxSpeed;
     public float jumpForce;
 
+    // Stored velocity variables
     private float Velocity;
     private float TotalTime;
     private float FinalVelocity;
@@ -16,12 +19,18 @@ public class character : MonoBehaviour
     private Vector3 MySavedVector;
 
     private Rigidbody2D Rb2D;
+
+    // Ground and air check
     public bool groundCheck;
     public bool airCheck;
 
+    // Move input
     public Vector2 moveInput;
-    SpriteRenderer playerSprite;
 
+    SpriteRenderer playerSprite;
+    #endregion
+
+    #region setup
     void Start()
     {
         playerSprite = GetComponent<SpriteRenderer>();
@@ -33,12 +42,16 @@ public class character : MonoBehaviour
         Rb2D = GetComponent<Rigidbody2D>();
         groundCheck = false;
 
+        // Start player in right direction
         if (gameObject.name == "Player1")
         {
             playerSprite.flipX = true;
         }
     }
+    #endregion
+
     #region getInput
+    // Getting player input
     void Update()
     {
         if (gameObject.name == "Player1")
@@ -59,12 +72,13 @@ public class character : MonoBehaviour
     #endregion
 
     #region playermovement
+    // Moving the player
     void PlayerMove(Vector2 input)
     {
-
         Vector3 MyVector = new Vector3(input.x, input.y);
         float MagOfVec = MyVector.magnitude;
 
+        // Flip sprite correct way
         if (input.x < 0)
         {
             playerSprite.flipX = false;
@@ -75,6 +89,7 @@ public class character : MonoBehaviour
             playerSprite.flipX = true;
         }
 
+        // handling acceleration and deceleration
         if (MagOfVec != 0)
         {
             float Acceleration = MaxSpeed / AccelerationTime;
@@ -93,12 +108,14 @@ public class character : MonoBehaviour
         float Distance = FinalVelocity * Time.deltaTime;
         transform.position += (MySavedVector * Distance);
 
+        // Adding jump force
         if (input.y > 0 && groundCheck == true)
         {
             Rb2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             groundCheck = false;
         }
 
+        // Dive/slam implementation
         if (input.y < 0 && groundCheck == false && airCheck == true)
         {
             if (Rb2D.velocity.y < 0)
@@ -108,7 +125,7 @@ public class character : MonoBehaviour
 
             if (Rb2D.velocity.y > 0 && Rb2D.velocity.y < 10)
             {
-                Rb2D.velocity = new Vector2(Rb2D.velocity.x, -Rb2D.velocity.y * 10);
+                Rb2D.velocity = new Vector2(Rb2D.velocity.x, -Rb2D.velocity.y * 5);
             }
             airCheck = false;
         }
@@ -116,6 +133,7 @@ public class character : MonoBehaviour
     #endregion
 
     #region collisions
+    // Color the balls correctly
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("ball"))
@@ -132,6 +150,7 @@ public class character : MonoBehaviour
         }
     }
 
+    // Ground check and air check
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("small platform") || collision.collider.gameObject.layer == LayerMask.NameToLayer("platform"))

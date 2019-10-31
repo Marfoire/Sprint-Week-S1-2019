@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class spee : MonoBehaviour
 {
+    #region variables
     // Initial velocity
     private Rigidbody2D Rb2D;
     public float speed;
@@ -27,7 +28,9 @@ public class spee : MonoBehaviour
     // Paint splatter paint prefabs for instantiating
     public GameObject bluePaint;
     public GameObject redPaint;
+    #endregion
 
+    #region setup
     void Start()
     {
         Rb2D = GetComponent<Rigidbody2D>();
@@ -43,7 +46,9 @@ public class spee : MonoBehaviour
         firstVelocity = Rb2D.velocity;
         startPosition = Rb2D.position;
     }
+    #endregion
 
+    #region debug
     void Update()
     {
         Vector3 line2Center = new Vector2(0, 0) - Rb2D.position;
@@ -52,6 +57,7 @@ public class spee : MonoBehaviour
         // Store the previous velocity of the ball for use upon impact with object
         previousVector = Rb2D.velocity;
 
+        // Keep ball speed the same
         if (Rb2D.velocity.magnitude != firstVelocity.magnitude)
         {
             Rb2D.velocity = Rb2D.velocity.normalized * firstVelocity.magnitude;
@@ -71,13 +77,17 @@ public class spee : MonoBehaviour
             Rb2D.velocity = nextDirection * speed;
         }
     }
+    #endregion
+
+    #region collision
+    // Check layer of object collided with and reverse appropriate part of velocity along with spawning paint splatters
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check layer of object collided with and reverse appropriate part of velocity
-        #region wallCollide
+        // Wall collision
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("wall")) {
             Rb2D.velocity = new Vector3(-previousVector.x, previousVector.y, 0);
 
+            // Instantiate paint splatter in right direction
             if (this.GetComponent<SpriteRenderer>().color == Color.red)
             {
                 GameObject redClone = Instantiate(redPaint, new Vector3(collision.collider.gameObject.transform.position.x, Rb2D.position.y), transform.rotation);
@@ -102,10 +112,12 @@ public class spee : MonoBehaviour
                 }
             }
         }
-        #endregion
 
+        // Floor collision
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("platform")) {
             Rb2D.velocity = new Vector3(previousVector.x, -previousVector.y, 0);
+            
+            // Instantiate paint splatter in right direction
             if (this.GetComponent<SpriteRenderer>().color == Color.red)
             {
                 GameObject redClone = Instantiate(redPaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y), transform.rotation);
@@ -116,9 +128,12 @@ public class spee : MonoBehaviour
             }
         }
 
+        //Ceiling collision
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("ceiling"))
         {
             Rb2D.velocity = new Vector3(previousVector.x, -previousVector.y, 0);
+
+            // Instantiate paint splatter in right direction
             if (this.GetComponent<SpriteRenderer>().color == Color.red)
             {
                 GameObject redClone = Instantiate(redPaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y), transform.rotation);
@@ -131,8 +146,10 @@ public class spee : MonoBehaviour
             }
         }
 
+        // Player collision
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("player")) {
             Rb2D.velocity = new Vector3(-previousVector.x, -previousVector.y, 0);
         }
     }
+    #endregion
 }
