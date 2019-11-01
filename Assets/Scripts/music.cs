@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class music : MonoBehaviour
 {
@@ -12,9 +11,4 @@ public class music : MonoBehaviour
         DontDestroyOnLoad(transform.gameObject);
         musics = GetComponent<AudioSource>();
     }
-
-    /*void Start()
-    {
-        SceneManager.LoadScene("Bullet Hell Stage", LoadSceneMode.Single);
-    }*/
 }
