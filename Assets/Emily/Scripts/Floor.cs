@@ -6,13 +6,13 @@ public class Floor : MonoBehaviour
 {
     public GameObject owner;
     public string Ball;
-    //depending which collider the ball hits, add +1 score prob debug cause idk ui lol
+    //when the floor detects the tag Ball, it'll sned a msg to the UI canvas and update score
 
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == Ball)
         {
-            // owner.SendMessage("Points", other.gameObject);
+            
             Debug.Log("aaaaaa");
             Score.scoreValue += 1;
         }
