@@ -28,12 +28,15 @@ public class spee : MonoBehaviour
     // Paint splatter paint prefabs for instantiating
     public GameObject bluePaint;
     public GameObject redPaint;
+
+    AudioSource MyAudioSource;
     #endregion
 
     #region setup
     void Start()
     {
         Rb2D = GetComponent<Rigidbody2D>();
+        MyAudioSource = GetComponent<AudioSource>();
         
         //Find random starting direction and speed
         randomAngle = Random.Range(1, 360);
@@ -149,6 +152,11 @@ public class spee : MonoBehaviour
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("player")) {
             Rb2D.velocity = new Vector3(-previousVector.x, -previousVector.y, 0);
         }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        MyAudioSource.Play();
     }
     #endregion
 }
