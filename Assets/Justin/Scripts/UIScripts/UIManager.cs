@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,9 +18,18 @@ public class UIManager : MonoBehaviour
     public Color color2 = new Color(140, 140, 0);
     public Color color3 = new Color(255, 255, 0);
 
+    [Header("EndUI")]
+    public Text playerScoreText;
+    public Text enemyScoreText;
+    public GameObject EndUiStatic;
+    public GameObject EndUI;
+
     [Header("SendMessage to chosen object")]
     public GameObject recipient;
     public string message;
+
+    private CenterLine cl;
+    private bool waitReset = false;
 
     private void Awake()
     {
@@ -32,14 +42,59 @@ public class UIManager : MonoBehaviour
         StartCoroutine("StartGame");
     }
 
-    public void setScore(float score)
+    public void Update()
     {
-        scoreText.text = score + "";
+        scoreText.text = cl.playerScore + "";
+
+        if (waitReset)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+    }
+
+    public void RegisterCenterLine(CenterLine newCl)
+    {
+        cl = newCl;
     }
     
+    public void EndUi()
+    {
+        StartCoroutine(EndGame());
+    }
+
+    public IEnumerator EndGame()
+    {
+        EndUI.SetActive(true);
+        EndUiStatic.SetActive(true);
+        
+        int maxScore;
+        int tempPlayerScore = 0, tempEnemyScore = 0;
+
+        if (cl.playerScore > cl.enemyScore) maxScore = cl.playerScore;
+        else maxScore = cl.enemyScore;
+
+        for(int i = 0; i < maxScore; i++)
+        {
+            if (cl.enemyScore > i) tempEnemyScore = i+1;
+            if (cl.playerScore > i) tempPlayerScore = i+1;
+
+            enemyScoreText.text = tempEnemyScore + "";
+            playerScoreText.text = tempPlayerScore + "";
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        yield return new WaitForSeconds(1);
+        waitReset = true;
+
+
+    }
 
     public IEnumerator StartGame()
     {
+        EndUI.SetActive(false);
         scoreText.gameObject.SetActive(false);
         readyUI.SetActive(true);
         timeLimit.SetActive(true);
@@ -75,6 +130,7 @@ public class UIManager : MonoBehaviour
         {
             recipient.SendMessage(message);
         }
+        GetComponent<GameTimer>().StartTimer();
 
         yield return new WaitForSeconds(1);
         readyUI.SetActive(false);

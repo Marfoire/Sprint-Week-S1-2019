@@ -23,11 +23,8 @@ public class CenterLine : MonoBehaviour
                 enemyScore++;
             }
         }
-    }
 
-    private void Update()
-    {
-        UIManager.uiManager.setScore(playerScore);
+        UIManager.uiManager.RegisterCenterLine(this);
     }
 
     private void OnTriggerEnter(Collider collision)
