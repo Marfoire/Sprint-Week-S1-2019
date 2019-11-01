@@ -18,7 +18,9 @@ public class character : MonoBehaviour
     private float MagOfSavedVec;
     private Vector3 MySavedVector;
 
+    // Setting up the player character
     private Rigidbody2D Rb2D;
+    private Vector2 start;
 
     // Ground and air check
     public bool groundCheck;
@@ -33,13 +35,15 @@ public class character : MonoBehaviour
     #region setup
     void Start()
     {
+        Rb2D = GetComponent<Rigidbody2D>();
+        start = Rb2D.position;
+
         playerSprite = GetComponent<SpriteRenderer>();
         AccelerationTime = 0.5f;
         DecelerationTime = 0.5f;
         MaxSpeed = 7;
         jumpForce = 4;
 
-        Rb2D = GetComponent<Rigidbody2D>();
         groundCheck = false;
 
         // Start player in right direction
@@ -51,9 +55,29 @@ public class character : MonoBehaviour
     #endregion
 
     #region getInput
-    // Getting player input
+    // Getting player input and player reset function
     void Update()
     {
+        // Reset player 1
+        if (gameObject.name == "Player1")
+        {
+            if (Input.GetKeyDown("left shift"))
+            {
+                Rb2D.velocity = Vector2.zero;
+                Rb2D.position = start;
+            }
+        }
+
+        // Reset player 2
+        if (gameObject.name == "Player2")
+        {
+            if (Input.GetKeyDown("right shift"))
+            {
+                Rb2D.velocity = Vector2.zero;
+                Rb2D.position = start;
+            }
+        }
+
         if (gameObject.name == "Player1")
         {
             moveInput = new Vector3(Input.GetAxis("Horizontal1"), Input.GetAxis("Vertical1"));
@@ -145,7 +169,7 @@ public class character : MonoBehaviour
 
             if (gameObject.name == "Player2")
             {
-                collision.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+                collision.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
             }
         }
     }

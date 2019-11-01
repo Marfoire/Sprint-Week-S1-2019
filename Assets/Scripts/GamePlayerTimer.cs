@@ -13,6 +13,8 @@ public class GamePlayerTimer : MonoBehaviour
     public Text blueWinsText;
     public Text redScoreTimer;
     public Text blueScoreTimer;
+    public Text redFinalScore;
+    public Text blueFinalScore;
 
     // Important variables
     public float targetTime;
@@ -35,7 +37,7 @@ public class GamePlayerTimer : MonoBehaviour
     #endregion
 
     #region setup
-    // Set scoreChecked to false
+    // Set scoreChecked to false for later
     private void Start()
     {
         scoreChecked = false;
@@ -98,8 +100,11 @@ public class GamePlayerTimer : MonoBehaviour
         int m_BlueScoreEndedOn = m_timerBlueScore;
         int m_RedScoreEndedOn = m_timerRedScore;
 
+        blueFinalScore.text = (m_RedScoreEndedOn).ToString();
+        redFinalScore.text = (m_BlueScoreEndedOn).ToString();
+
         // Compare scores
-        if(m_BlueScoreEndedOn > m_RedScoreEndedOn)
+        if (m_BlueScoreEndedOn > m_RedScoreEndedOn)
         {
             // BLUE WINSS
             blueWinsText.enabled = true;

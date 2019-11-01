@@ -52,7 +52,7 @@ public class spee : MonoBehaviour
     void Update()
     {
         Vector3 line2Center = new Vector2(0, 0) - Rb2D.position;
-        Debug.DrawLine(Rb2D.position, startPosition, Color.red);
+        Debug.DrawLine(Rb2D.position, startPosition, Color.green);
 
         // Store the previous velocity of the ball for use upon impact with object
         previousVector = Rb2D.velocity;
@@ -65,7 +65,6 @@ public class spee : MonoBehaviour
 
         // Current direction vector
         direction = Rb2D.velocity.normalized;
-        Debug.Log(direction);
 
         // Reset ball if stuck
         if (direction.x == 0 || direction.y == 0)
@@ -90,7 +89,7 @@ public class spee : MonoBehaviour
             // Instantiate paint splatter in right direction
             if (this.GetComponent<SpriteRenderer>().color == Color.red)
             {
-                GameObject redClone = Instantiate(redPaint, new Vector3(collision.collider.gameObject.transform.position.x, Rb2D.position.y), transform.rotation);
+                GameObject redClone = Instantiate(redPaint, new Vector3(collision.collider.gameObject.transform.position.x, Rb2D.position.y, -1.7f), transform.rotation);
                 if (redClone.transform.position.x < 0)
                 {
                     redClone.transform.Rotate(0, 0, -90);
@@ -99,9 +98,9 @@ public class spee : MonoBehaviour
                 {
                     redClone.transform.Rotate(0, 0, 90);
                 }
-            } else if (this.GetComponent<SpriteRenderer>().color == Color.cyan)
+            } else if (this.GetComponent<SpriteRenderer>().color == Color.blue)
             {
-                GameObject blueClone = Instantiate(bluePaint, new Vector3(collision.collider.gameObject.transform.position.x, Rb2D.position.y), transform.rotation);
+                GameObject blueClone = Instantiate(bluePaint, new Vector3(collision.collider.gameObject.transform.position.x, Rb2D.position.y, -1.7f), transform.rotation);
                 if (blueClone.transform.position.x < 0)
                 {
                     blueClone.transform.Rotate(0, 0, -90);
@@ -120,11 +119,11 @@ public class spee : MonoBehaviour
             // Instantiate paint splatter in right direction
             if (this.GetComponent<SpriteRenderer>().color == Color.red)
             {
-                GameObject redClone = Instantiate(redPaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y), transform.rotation);
+                GameObject redClone = Instantiate(redPaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y, -1.7f), transform.rotation);
             }
-            else if (this.GetComponent<SpriteRenderer>().color == Color.cyan)
+            else if (this.GetComponent<SpriteRenderer>().color == Color.blue)
             {
-                GameObject blueClone = Instantiate(bluePaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y), transform.rotation);
+                GameObject blueClone = Instantiate(bluePaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y, -1.7f), transform.rotation);
             }
         }
 
@@ -136,12 +135,12 @@ public class spee : MonoBehaviour
             // Instantiate paint splatter in right direction
             if (this.GetComponent<SpriteRenderer>().color == Color.red)
             {
-                GameObject redClone = Instantiate(redPaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y), transform.rotation);
+                GameObject redClone = Instantiate(redPaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y, -1.7f), transform.rotation);
                 redClone.GetComponent<SpriteRenderer>().flipY = false;
             }
-            else if (this.GetComponent<SpriteRenderer>().color == Color.cyan)
+            else if (this.GetComponent<SpriteRenderer>().color == Color.blue)
             {
-                GameObject blueClone = Instantiate(bluePaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y), transform.rotation);
+                GameObject blueClone = Instantiate(bluePaint, new Vector3(Rb2D.position.x, collision.collider.gameObject.transform.position.y, -1.7f), transform.rotation);
                 blueClone.GetComponent<SpriteRenderer>().flipY = false;
             }
         }
