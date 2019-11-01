@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class music : MonoBehaviour
 {
+    #region music
+    // Play music
     private AudioSource musics;
 
     void Awake()
@@ -11,4 +13,5 @@ public class music : MonoBehaviour
         DontDestroyOnLoad(transform.gameObject);
         musics = GetComponent<AudioSource>();
     }
+    #endregion
 }

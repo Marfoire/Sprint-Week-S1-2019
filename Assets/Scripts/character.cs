@@ -174,7 +174,7 @@ public class character : MonoBehaviour
         }
     }
 
-    // Ground check and air check
+    // Adjust ground check after landing
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("small platform") || collision.collider.gameObject.layer == LayerMask.NameToLayer("platform"))
@@ -183,6 +183,7 @@ public class character : MonoBehaviour
         }
     }
 
+    // Adjust ground and air check after jumping
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("small platform") || collision.collider.gameObject.layer == LayerMask.NameToLayer("platform"))

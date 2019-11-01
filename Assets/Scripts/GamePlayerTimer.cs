@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GamePlayerTimer : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GamePlayerTimer : MonoBehaviour
     public Text blueScoreTimer;
     public Text redFinalScore;
     public Text blueFinalScore;
+    public Text resetMenuText;
 
     // Important variables
     public float targetTime;
@@ -37,14 +39,15 @@ public class GamePlayerTimer : MonoBehaviour
     #endregion
 
     #region setup
-    // Set scoreChecked to false for later
+    // Set variables to false for later
     private void Start()
     {
         scoreChecked = false;
+        resetMenuText.enabled = false;
     }
     #endregion
 
-    #region timer
+    #region timerandend
     void Update()
     {
         // Timer setup
@@ -73,6 +76,21 @@ public class GamePlayerTimer : MonoBehaviour
             coroutine2 = enabletimer();
             StartCoroutine(coroutine2);
         }
+
+        if (resetMenuText.enabled == true)
+        {
+            // Reset game when R is pushed
+            if (Input.GetKeyDown("r"))
+            {
+                SceneManager.LoadScene("Bullet Hell Stage", LoadSceneMode.Single);
+            }
+
+            // Go to Main Menu when M is pushed
+            if (Input.GetKeyDown("m"))
+            {
+                SceneManager.LoadScene("StartScreen", LoadSceneMode.Single);
+            }
+        }
     }
     #endregion
 
@@ -82,6 +100,7 @@ public class GamePlayerTimer : MonoBehaviour
     {
         targetTime = 0;
         gameOverText.enabled = true;
+        resetMenuText.enabled = true;
         timerText.enabled = false;
         redScoreTimer.enabled = false;
         blueScoreTimer.enabled = false;

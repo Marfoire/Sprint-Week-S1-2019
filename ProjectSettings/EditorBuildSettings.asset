@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bullet Hell Stage.unity
     guid: a7457037b82bc0647a48a9334b796885
+  - enabled: 1
+    path: Assets/Scenes/Controls.unity
+    guid: 0f1b85b5661ab6949a1edb68c44c8dd5
   m_configObjects: {}
