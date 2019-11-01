@@ -21,7 +21,7 @@ public class GamePlayerTimer : MonoBehaviour
     public Bounds bound;
 
     // Non text assigned physical objects
-    public GameObject gameObject;
+    public GameObject coll;
     public Image opacity;
 
     // Extra variables
@@ -93,8 +93,8 @@ public class GamePlayerTimer : MonoBehaviour
     void CheckToSeeWhoWon()
     {
         // Fetching scores
-        m_timerBlueScore = gameObject.GetComponent<ScoreBoard>().m_blueScore;
-        m_timerRedScore = gameObject.GetComponent<ScoreBoard>().m_redScore;
+        m_timerBlueScore = coll.GetComponent<ScoreBoard>().m_blueScore;
+        m_timerRedScore = coll.GetComponent<ScoreBoard>().m_redScore;
 
         // Setting scores to compare
         int m_BlueScoreEndedOn = m_timerBlueScore;
