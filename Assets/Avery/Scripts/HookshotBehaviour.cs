@@ -60,6 +60,7 @@ public class HookshotBehaviour : MonoBehaviour
         {            
             ToggleSenderCollision(true);
             GetComponent<Collider>().isTrigger = false;
+            transform.localPosition = Vector3.zero;
             transform.parent = null;
             travelDirection = Camera.main.transform.forward;
             rb.rotation = Quaternion.LookRotation(travelDirection);

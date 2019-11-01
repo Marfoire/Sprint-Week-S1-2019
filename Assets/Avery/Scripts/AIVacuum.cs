@@ -11,6 +11,7 @@ public class AIVacuum : MonoBehaviour
     private NavMeshAgent agent;
     private bool invokeScan;
     private GameObject target;
+    public GameObject bannerUI;
 
     private void Awake()
     {
@@ -63,36 +64,50 @@ public class AIVacuum : MonoBehaviour
         {
             agent.destination = target.transform.position;
         }
+        else
+        {
+            agent.destination = transform.position;
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void TossBall(Collider ball)
+    {
+        ball.attachedRigidbody.velocity = throwForce * ((playerObject.GetComponent<Rigidbody>().position + Vector3.up * Random.Range(2, 7)) - transform.position).normalized;
+    }
+
+
+    private void OnTriggerStay(Collider other)
     {
         if(other.tag == "Ball")
         {
             if (playerObject)
             {
-                other.attachedRigidbody.velocity = throwForce * ((playerObject.GetComponent<Rigidbody>().position + Vector3.up * Random.Range(2,7)) - transform.position).normalized;
-
-                if(other.gameObject == target)
-                {
-                    Invoke("FindATarget", 0.15f);
-                }
+                TossBall(other);
             }
         }
     }
 
     void Update()
-    {        
-        if (!target && AreThereBallsInRange() == true)
+    {
+        if (bannerUI.activeSelf == false)
         {
-            FindATarget();
+            if (!target && AreThereBallsInRange() == true)
+            {
+                FindATarget();
+            }
+            else if (!invokeScan)
+            {
+                invokeScan = true;
+                Invoke("FindATarget", 0.5f);
+            }
+            if (target)
+            {
+                if (target.GetComponent<BallSide>().side == 1)
+                {
+                    target = null;
+                }
+            }
+            UpdateDestination();
         }
-        else if (!invokeScan)
-        {
-            invokeScan = true;
-            Invoke("FindATarget", 0.5f);
-        }
-        UpdateDestination();
     }
-
 }

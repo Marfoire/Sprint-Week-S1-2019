@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7180938202793204205}
   - component: {fileID: 2232896463737349083}
   - component: {fileID: 5602582302300413730}
+  - component: {fileID: 5915655343028811652}
   m_Layer: 0
   m_Name: TunnelProp
   m_TagString: Untagged
@@ -78,3 +79,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5915655343028811652
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6195977713679051774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000002, y: 2.0858908, z: 8.769975}
+  m_Center: {x: 0.0000007493543, y: 3.957055, z: -0.6150149}
